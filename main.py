@@ -15,7 +15,6 @@ clock = pygame.time.Clock()
 SNAKE = []
 score = 0
 direction = None
-# fpsclock = 
 
 black = (0, 0, 0)
 
@@ -39,7 +38,7 @@ class Food(Snake):
             self.x = findSpot(self.width)[0]
             self.y = findSpot(self.width)[1]
             score += 1
-            SNAKE.append(Snake(290, 290, 10, SNAKE_COLOR))
+            SNAKE.append(Snake(1000, 1000, 10, SNAKE_COLOR))
 
 def findSpot(width):
     randX = random.randint(0, WIDTH - width)
@@ -57,7 +56,7 @@ def quit():
     pygame.quit()
     sys.exit()
 
-def collision():
+def snakeCollisions():
     if SNAKE[0].x < 0 or SNAKE[0].y < 0 or SNAKE[0].x > WIDTH or SNAKE[0].y > HEIGHT:
         quit()
     
@@ -79,7 +78,7 @@ while True:
     food.draw()
     food.detectPlayer()
 
-    collision()
+    snakeCollisions()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -97,8 +96,6 @@ while True:
                 
             elif event.key == pygame.K_d and direction != 'w':
                 direction = 'e'
-            elif event.key == pygame.K_e:
-                SNAKE.append(Snake(290, 290, 10, SNAKE_COLOR))
             
     if direction == 'e':
         SNAKE.insert(0, Snake(SNAKE[0].x + SNAKE[0].width, SNAKE[0].y, 10, SNAKE_COLOR))
